@@ -22,7 +22,7 @@ class BingoBoard:
         self.is_faster = False
         self.is_slower = False
 
-    def search(self, n):
+    def look_for(self, n):
         for r, row in enumerate(self.template):
             for c, col in enumerate(row):
                 if self.template[r][c] == n:
@@ -72,6 +72,7 @@ class BingoBoard:
             slowest_game['board_sum'] = board_sum * slowest_game['winning_number']
 
 
+# --------------------------------------------------------------------------------------------------------------------
 fastest_game = {'board_number': float('inf'), 'call_index': float('inf'), 'winning_number': -1, 'board_sum': -1}
 slowest_game = {'board_number': float('-inf'), 'call_index': float('-inf'), 'winning_number': -1, 'board_sum': -1}
 
@@ -87,7 +88,7 @@ while data:
 for curr_board in bingo_boards:
     # start calling numbers...
     for i, number in enumerate(BINGO_NUMBERS):
-        curr_board.search(number)
+        curr_board.look_for(number)
         curr_board.check_row(i)
         curr_board.check_column(i)
         if curr_board.is_winning_board:
