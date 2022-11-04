@@ -42,14 +42,12 @@ class BingoBoard:
                             return
 
     def check_row(self, number_index):
-        global fastest_game, slowest_game
         for row in self.board:
             if row.count("X") == 5:
                 self.log_results(number_index)
                 return
 
     def check_column(self, number_index):
-        global fastest_game, slowest_game
         for c in range(ROW_LENGTH):
             column = []
             for r in range(COL_LENGTH):
@@ -59,6 +57,7 @@ class BingoBoard:
                     return
 
     def log_results(self, number_index):
+        global fastest_game, slowest_game
         if number_index < fastest_game['call_index']:
             self.is_faster = True
             fastest_game['call_index'] = number_index
