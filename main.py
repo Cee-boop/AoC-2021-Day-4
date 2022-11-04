@@ -45,18 +45,7 @@ class BingoBoard:
         global fastest_game, slowest_game
         for row in self.board:
             if row.count("X") == 5:
-
-                if number_index < fastest_game['call_index']:
-                    self.is_faster = True
-                    fastest_game['call_index'] = number_index
-                    fastest_game['winning_number'] = BINGO_NUMBERS[number_index]
-                    fastest_game['board_number'] = self.board_index_pos
-                if number_index > slowest_game['call_index']:
-                    self.is_slower = True
-                    slowest_game['call_index'] = number_index
-                    slowest_game['winning_number'] = BINGO_NUMBERS[number_index]
-                    slowest_game['board_number'] = self.board_index_pos
-                self.winning_board = True
+                self.log_results(number_index)
                 return
 
     def check_column(self, number_index):
@@ -65,20 +54,22 @@ class BingoBoard:
             column = []
             for r in range(COL_LENGTH):
                 column.append(self.board[r][c])
+                if column.count("X") == 5:
+                    self.log_results(number_index)
+                    return
 
-            if column.count("X") == 5:
-                if number_index < fastest_game['call_index']:
-                    self.is_faster = True
-                    fastest_game['call_index'] = number_index
-                    fastest_game['winning_number'] = BINGO_NUMBERS[number_index]
-                    fastest_game['board_number'] = self.board_index_pos
-                if number_index > slowest_game['call_index']:
-                    self.is_slower = True
-                    slowest_game['call_index'] = number_index
-                    slowest_game['winning_number'] = BINGO_NUMBERS[number_index]
-                    slowest_game['board_number'] = self.board_index_pos
-                self.winning_board = True
-                return
+    def log_results(self, number_index):
+        if number_index < fastest_game['call_index']:
+            self.is_faster = True
+            fastest_game['call_index'] = number_index
+            fastest_game['winning_number'] = BINGO_NUMBERS[number_index]
+            fastest_game['board_number'] = self.board_index_pos
+        if number_index > slowest_game['call_index']:
+            self.is_slower = True
+            slowest_game['call_index'] = number_index
+            slowest_game['winning_number'] = BINGO_NUMBERS[number_index]
+            slowest_game['board_number'] = self.board_index_pos
+        self.winning_board = True
 
     def winning_board_sum(self):
         global fastest_game, slowest_game
